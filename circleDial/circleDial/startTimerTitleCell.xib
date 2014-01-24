@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="110" id="LuT-RI-OvI" customClass="startTimerTitleCell">
+            <rect key="frame" x="0.0" y="0.0" width="260" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LuT-RI-OvI" id="C4X-QB-cs4">
+                <rect key="frame" x="0.0" y="0.0" width="260" height="89"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lp6-Hu-RpN">
+                        <rect key="frame" x="89" y="4" width="82" height="63"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="63" id="GGx-r2-tBw"/>
+                            <constraint firstAttribute="width" constant="82" id="HPE-nP-dKn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlL-od-aVP">
+                        <rect key="frame" x="42" y="66" width="177" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="177" id="ezc-IM-i14"/>
+                            <constraint firstAttribute="height" constant="21" id="gBr-Dt-gvp"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Lp6-Hu-RpN" firstAttribute="leading" secondItem="C4X-QB-cs4" secondAttribute="leading" constant="89" id="Izx-oY-2kB"/>
+                    <constraint firstItem="YlL-od-aVP" firstAttribute="leading" secondItem="C4X-QB-cs4" secondAttribute="leading" constant="42" id="i2O-Eo-2Ie"/>
+                    <constraint firstAttribute="bottom" secondItem="YlL-od-aVP" secondAttribute="bottom" constant="2" id="nZO-hW-5hS"/>
+                    <constraint firstItem="Lp6-Hu-RpN" firstAttribute="top" secondItem="C4X-QB-cs4" secondAttribute="top" constant="4" id="pUp-2W-6Ef"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="alarmIcon" destination="Lp6-Hu-RpN" id="gVq-Vf-FLZ"/>
+                <outlet property="alarmMsg" destination="YlL-od-aVP" id="kGN-1T-52C"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
