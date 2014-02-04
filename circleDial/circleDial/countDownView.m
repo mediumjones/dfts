@@ -192,9 +192,9 @@
 												clockwise:YES];
 		self.path.lineWidth = progressCircle.lineWidth * 2;
 		
-		CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
-		CGContextMoveToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y - rect.size.height*0.1);
-		CGContextAddLineToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y + rect.size.height*0.1);
+		CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+		CGContextMoveToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y - rect.size.height*0.07);
+		CGContextAddLineToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y + rect.size.height*0.07);
 		
 		CGContextSetLineWidth(context, 3.0); // this is set from now on until you explicitly change it
 		

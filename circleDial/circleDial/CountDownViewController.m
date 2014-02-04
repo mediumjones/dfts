@@ -8,7 +8,10 @@
 
 #import "CountDownViewController.h"
 #import "MPFlipTransition.h"
-
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
+#define kTopMarginDragView (IS_IPHONE_5  ? 258 : 0)
+#define kBottomMarginDragView (IS_IPHONE_5  ? 730 : 430)
 @interface CountDownViewController ()
 
 @end
@@ -30,7 +33,7 @@
 	// Do any additional setup after loading the view.
 	[self.countDownTimer setProgress:1.0];
 	self.countDownTimer.delegate = self;
-	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Light" size:50];
+	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Light" size:60];
 	self.countDownText.font = textFont;
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -43,26 +46,29 @@
 												 name:@"DragViewPanned"
 											   object:nil];
 
+	[self.secondsTickBackgroundView shouldDisplaySeconds];
+	[self.secondsTickView shouldDisplaySeconds];
 }
 
 - (void)updateTimer:(NSNotification*)notification{
 	NSDictionary *dict = [notification userInfo];
-	CGFloat setupViewSpace = [[dict objectForKey:@"DragViewSpace"] floatValue];
-	NSLog(@"space is %f", setupViewSpace);
+	CGFloat timerViewCenterY = [[dict objectForKey:@"center"] floatValue];
+	NSLog(@"space is %f", timerViewCenterY);
 	if (!self.countDownTimer.isCountDownRunning){
-		CGFloat newBottom = 300 - (150.f / 452.f) * (setupViewSpace - 54.f);
-		self.VBottomSpaceCountDownView.constant = newBottom;
+		CGFloat newBottom = (self.view.frame.size.height/2.f) / (730.f - 258.f) * (timerViewCenterY - 258);
+		NSLog(@"new bottom is %f", newBottom);
+		self.countDownTimer.center = CGPointMake(self.countDownTimer.center.x, newBottom);
 		
-		// Calculating new progress for progress view
-		CGFloat newProgress = 0 + ((1.0f / 452.0f) * (setupViewSpace - 54.f));
-		NSLog(@"progress is %f",newProgress);
-		if (newProgress > 0){
-			self.countDownTimer.progress = newProgress;
-			[self.countDownTimer setNeedsDisplay];
-		}
-
+//		// Calculating new progress for progress view
+//		CGFloat newProgress = 0 + ((1.0f / 452.0f) * (timerViewCenterY - 54.f));
+//		NSLog(@"progress is %f",newProgress);
+//		if (newProgress > 0){
+//			self.countDownTimer.progress = newProgress;
+//			[self.countDownTimer setNeedsDisplay];
+//		}
+//
 		// Animate the headerView and slidingHeaderView frame
-		if (setupViewSpace >= 490){
+		if (timerViewCenterY >= 490){
 			if ([self.countDownText.text isEqualToString:@"READY"]){
 				[UIView animateWithDuration:1.0 animations:^{
 					self.countDownText.alpha = 0.0;
@@ -90,6 +96,7 @@
 	
 	[self.countDownTimer setUpTimerWithCountDownTimer:countDownDuration];
 	[self.countDownTimer startTimer];
+	[self.countDownText.textColor = [UIColor blackColor]CGColor];
 }
 
 - (void)didReceiveMemoryWarning

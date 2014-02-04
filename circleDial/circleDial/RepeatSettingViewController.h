@@ -12,5 +12,4 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *checkMarkIconLabel;
 @property (strong, nonatomic) IBOutlet UITableView *repeatTableView;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *VTopSpaceCheckTable;
 @end
