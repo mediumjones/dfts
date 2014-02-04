@@ -11,4 +11,5 @@
 @interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *settingsTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @end

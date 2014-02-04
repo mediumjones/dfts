@@ -12,9 +12,13 @@
 
 @interface RepeatSettingViewController ()
 
+@property (nonatomic, assign) BOOL repeatOnceOn;
+
 @end
 
 @implementation RepeatSettingViewController
+@synthesize repeatOnceOn = _repeatOnceOn;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +41,9 @@
 	self.checkMarkIconLabel.font = [UIFont fontWithName:@"SS Gizmo" size:30];;
 	self.checkMarkIconLabel.text = [NSString convertUnicode:@"0x2713"];
 	self.checkMarkIconLabel.textColor = [UIColor blackColor];
+	
+	NSUserDefaults *defaultManager = [NSUserDefaults standardUserDefaults];
+	self.repeatOnceOn = [defaultManager boolForKey:@"REPEATON"];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -46,6 +53,10 @@
 											 selector:@selector(showTimerMenu:)
 												 name:@"presentTimerMenu"
 											   object:nil];
+	
+	if (self.repeatOnceOn){
+		self.checkMarkIconLabel.transform = CGAffineTransformTranslate(self.checkMarkIconLabel.transform, 0, 80);
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -150,21 +161,30 @@
 #pragma mark - UITableView Delegate methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSUserDefaults *defaultManager = [NSUserDefaults standardUserDefaults];
 	switch (indexPath.row) {
 		case 0:
 		{
-			[UIView animateWithDuration:0.5 animations:^{
-				[self.VTopSpaceCheckTable setConstant:0];
-				[self.checkMarkIconLabel layoutIfNeeded];
-			}];
+			if (self.repeatOnceOn){
+				[UIView animateWithDuration:0.5 animations:^{
+					self.checkMarkIconLabel.transform = CGAffineTransformIdentity;
+					self.repeatOnceOn = NO;
+					[defaultManager setBool:NO forKey:@"REPEATON"];
+					[defaultManager synchronize];
+				}];
+			}
 			break;
 		}
 		case 1:
 		{
-			[UIView animateWithDuration:0.5 animations:^{
-				[self.VTopSpaceCheckTable setConstant:80];
-				[self.checkMarkIconLabel layoutIfNeeded];
-			}];
+			if (!self.repeatOnceOn){
+				[UIView animateWithDuration:0.5 animations:^{
+					self.checkMarkIconLabel.transform = CGAffineTransformTranslate(self.checkMarkIconLabel.transform, 0, 80);
+					self.repeatOnceOn = YES;
+					[defaultManager setBool:YES forKey:@"REPEATON"];
+					[defaultManager synchronize];
+				}];
+			}
 			break;
 		}
 		default:

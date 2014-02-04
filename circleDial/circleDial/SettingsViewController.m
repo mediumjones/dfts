@@ -38,6 +38,10 @@
 	// Do any additional setup after loading the view.
 	self.settingsTableView.backgroundView = nil;
 	self.settingsTableView.backgroundColor = [UIColor clearColor];
+	
+	if (IS_IPHONE_5){
+		self.backgroundImageView.image = [UIImage imageNamed:@"background"];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -68,16 +72,16 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
 		case 0:
-			return IS_IPHONE_5 ? 80 :90;
+			return IS_IPHONE_5 ? 90 :80;
 			break;
 		case 1:
-			return IS_IPHONE_5 ? 130 : 140;
+			return IS_IPHONE_5 ? 140 : 130;
 			break;
 		case 2:
-			return IS_IPHONE_5 ? 20 : 30;
+			return IS_IPHONE_5 ? 30 : 20;
 			break;
 		case 3:
-			return IS_IPHONE_5 ? 130 :140;
+			return IS_IPHONE_5 ? 140 :130;
 			break;
 		default:
 			break;

@@ -56,24 +56,7 @@
 		_secondsLabel = [[TTTAttributedLabel alloc]initWithCoder:aDecoder];
 		_secondsLabel.text = attrStr;
 		_secondsLabel.hidden = YES;
-		NSLayoutConstraint* cn1 = [NSLayoutConstraint constraintWithItem:_secondsLabel
-										  attribute:NSLayoutAttributeHeight
-										  relatedBy:NSLayoutRelationEqual
-											 toItem:nil
-										  attribute:NSLayoutAttributeNotAnAttribute
-										 multiplier:1
-										   constant:200];
-		[_secondsLabel addConstraint:cn1];
-		
-		NSLayoutConstraint *cn2 = [NSLayoutConstraint constraintWithItem:_secondsLabel
-										  attribute:NSLayoutAttributeWidth
-										  relatedBy:NSLayoutRelationEqual
-											 toItem:nil
-										  attribute:NSLayoutAttributeNotAnAttribute
-										 multiplier:1
-										   constant:200];
-		[_secondsLabel addConstraint: cn2];
-		//[self addSubview:_secondsLabel];
+		[self addSubview:_secondsLabel];
 	}
 	return self;
 }
@@ -88,14 +71,13 @@
 	
 	CGContextSetLineWidth(context, 1.0);
 	
-
 	CGContextSetStrokeColorWithColor(context, self.textColor.CGColor);
 
 	CGMutablePathRef pathRef = CGPathCreateMutable();
 	CGPathMoveToPoint(pathRef, NULL, self.frame.size.width/2, 0);
-	CGPathAddLineToPoint(pathRef, NULL, self.frame.size.width, self.frame.size.height/2);
-	CGPathAddLineToPoint(pathRef, NULL, self.frame.size.width/2, self.frame.size.height);
-	CGPathAddLineToPoint(pathRef, NULL, 0, self.frame.size.height/2);
+	CGPathAddLineToPoint(pathRef, NULL,  self.frame.size.width, rect.size.height/2);
+	CGPathAddLineToPoint(pathRef, NULL,  self.frame.size.width/2, rect.size.height);
+	CGPathAddLineToPoint(pathRef, NULL, 0,  self.frame.size.height/2);
 	CGPathCloseSubpath(pathRef);
 	
 	CGContextSetFillColorWithColor(context, self.backColor.CGColor);
@@ -110,17 +92,17 @@
 }
 
 - (CGRect)getRectForText{
-	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Medium" size:35];
+	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Light" size:35];
 	CGFloat fontHeight = textFont.pointSize;
     CGFloat yOffset = (self.frame.size.height - fontHeight) / 2.0;
 	
-    CGRect textRect = CGRectMake(0, yOffset+2, self.frame.size.width, fontHeight);
+    CGRect textRect = CGRectMake(0, yOffset, self.frame.size.width, fontHeight);
 	return textRect;
 }
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-	//self.secondsLabel.frame = [self getRectForText];
+	self.secondsLabel.frame = [self getRectForText];
 }
 
 - (id)updateCurrentSeconds:(int)seconds{
@@ -143,7 +125,7 @@
 }
 
 - (void)shouldDisplaySeconds{
-	self.textColor = [UIColor grayColor];
+	self.textColor = [UIColor blackColor];
 	self.backColor = [UIColor whiteColor];
 	self.secondsLabel.hidden = NO;
 }

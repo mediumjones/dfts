@@ -15,8 +15,8 @@
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
 
-#define kTopMarginDragView (IS_IPHONE_5  ? 0 : 0)
-#define kBottomMarginDragView (IS_IPHONE_5  ? 518 : 430)
+#define kTopMarginDragView (IS_IPHONE_5  ? 258 : 0)
+#define kBottomMarginDragView (IS_IPHONE_5  ? 730 : 430)
 #define kTopMarginDialSetupView (IS_IPHONE_5  ? 249.5 : 205.5)
 #define kBottomMarginDialSetupView (IS_IPHONE_5  ? 483 : 395)
 #define SWIPE_UP_THRESHOLD -1000.0f
@@ -133,14 +133,8 @@ typedef enum MenuState {
 
 - (void)toggleTimerBtn{
 	[UIView animateWithDuration:0.25 animations:^{
-		self.clipView.transform = (self.currentMenuState == MENU_TIMERMENUON) ?
-		CGAffineTransformIdentity : CGAffineTransformMakeScale(0.9, 0.9);
-		self.VTopSpaceClipView.constant = (self.currentMenuState == MENU_TIMERMENUON) ?
-		0 : self.view.bounds.size.height*0.05;
-		self.VBottomSpaceClipView.constant = (self.currentMenuState == MENU_TIMERMENUON) ?
-		0 : self.view.bounds.size.height*0.05;
-		self.HLeadingSpaceClipView.constant = (self.currentMenuState == MENU_TIMERMENUON) ?
-		0 : 260;
+		self.clipView.transform =  (self.currentMenuState != MENU_TIMERMENUON) ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformIdentity;
+		self.clipView.center = (self.currentMenuState != MENU_TIMERMENUON) ? CGPointMake(kMaxHorizontalTimerBtnCenter, self.clipView.center.y) : CGPointMake(kMinHorizontalTimerBtnCenter, self.clipView.center.y);
 		[self.view layoutIfNeeded];
 	} completion:^(BOOL finished) {
 		if (finished){
@@ -154,19 +148,12 @@ typedef enum MenuState {
 - (void)toggleRepeatBtn{
 	
 	[UIView animateWithDuration:0.25 animations:^{
-		self.HLeadingSpaceClipView.constant = (self.currentMenuState == MENU_REPEATMENUON) ?
-		0 : -234;
-		self.clipView.transform = (self.currentMenuState == MENU_REPEATMENUON) ?
-		CGAffineTransformIdentity : CGAffineTransformMakeScale(0.9, 0.9);
-		self.VTopSpaceClipView.constant = (self.currentMenuState == MENU_REPEATMENUON) ?
-		0 : self.view.bounds.size.height*0.05;
-		self.VBottomSpaceClipView.constant = (self.currentMenuState == MENU_REPEATMENUON) ?
-		0 : self.view.bounds.size.height*0.05;
+		self.clipView.transform =  (self.currentMenuState != MENU_REPEATMENUON) ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformIdentity;
+		self.clipView.center = (self.currentMenuState != MENU_REPEATMENUON) ?  CGPointMake(kMinHorizontalRepeatBtnCenter, self.clipView.center.y) : CGPointMake(kMaxHorizontalRepeatBtnCenter, self.clipView.center.y);
 		[self.view layoutIfNeeded];
 		[self performSelector:@selector(switchRepeat)
 				   withObject:nil
 				   afterDelay:0.10];
-
 	} completion:^(BOOL finished) {
 
 	}];
@@ -210,7 +197,7 @@ typedef enum MenuState {
 			// Calculating new Y point for dragview
 			CGFloat newDragY = 20.f - ((20.f / (kBottomMarginDialSetupView - kTopMarginDialSetupView)) * (centerValue.y - kTopMarginDialSetupView));
 			
-			[self.VDragViewSpacing setConstant:newDragY];
+//			[self.VDragViewSpacing setConstant:newDragY];
 		}
 	}else if ([keyPath isEqual:@"currentMenuState"]){
 		int newState = [[change objectForKey:@"new"] integerValue];
@@ -246,29 +233,24 @@ typedef enum MenuState {
     [sender setTranslation:CGPointZero
 					inView:sender.view];
 
+	NSLog(@"v spacing is %f",self.setupTimerView.center.y);
 	// Update the dragView location
-	if (self.VSetupTimerViewSpacing.constant + t.y <= kBottomMarginDragView &&
-		self.VSetupTimerViewSpacing.constant + t.y >= kTopMarginDragView){
+	if (self.setupTimerView.center.y + t.y <= kBottomMarginDragView &&
+		self.setupTimerView.center.y + t.y >= kTopMarginDragView){
 		
 		//NSLog(@"HEllo");
-		NSLog(@"v spacing is %f",self.VSetupTimerViewSpacing.constant);
-		[self.VSetupTimerViewSpacing  setConstant:
-				self.VSetupTimerViewSpacing.constant + t.y];
-		[self.VBottomSpaceSetupTimerView setConstant:self.VBottomSpaceSetupTimerView.constant - t.y];
-		NSNumber *spacing = [NSNumber numberWithFloat:self.VSetupTimerViewSpacing.constant];
-		[[NSNotificationCenter defaultCenter]postNotificationName:@"DragViewPanned" object:nil userInfo:[NSDictionary dictionaryWithObject:spacing forKey:@"DragViewSpace"]];
+		[[NSNotificationCenter defaultCenter]postNotificationName:@"DragViewPanned" object:nil userInfo:@{@"center": [NSNumber numberWithFloat:self.setupTimerView.center.y]}];
+		self.setupTimerView.center = CGPointMake(self.setupTimerView.center.x, self.setupTimerView.center.y + t.y);
 	}
-	
-	
+//	
 	// But also, detect the swipe gesture
 	if (sender.state == UIGestureRecognizerStateEnded)
 	{		
-		if (self.VSetupTimerViewSpacing.constant > kBottomMarginDragView - 45){
+		if (self.setupTimerView.center.y > kBottomMarginDragView - 50){
 			
 			[UIView animateWithDuration:0.5
 							 animations:^{
-								[self.VSetupTimerViewSpacing
-								  setConstant: kBottomMarginDragView - 15];
+								self.setupTimerView.center = CGPointMake(self.setupTimerView.center.x, kBottomMarginDragView);
 								[self.view layoutIfNeeded];
 							}completion:^(BOOL finished) {
 
@@ -281,10 +263,7 @@ typedef enum MenuState {
 		}else{
 			[UIView animateWithDuration:0.5
 							 animations:^{
-								[self.VSetupTimerViewSpacing
-								  setConstant:0];
-								 [self.VBottomSpaceSetupTimerView
-								  setConstant:49];
+								 self.setupTimerView.center = CGPointMake(self.setupTimerView.center.x, kTopMarginDragView);
 								[self.view layoutIfNeeded];
 							}completion:^(BOOL finished) {
 
@@ -318,8 +297,7 @@ typedef enum MenuState {
 	if (self.clipView.center.x + t.x >= kMinHorizontalTimerBtnCenter &&
 		self.clipView.center.x + t.x <= kMaxHorizontalTimerBtnCenter){
 		
-		[self.HLeadingSpaceClipView  setConstant:
-		 self.HLeadingSpaceClipView.constant + t.x];
+		self.clipView.center = CGPointMake(self.clipView.center.x + t.x, self.clipView.center.y);
 	}
 	
 	
@@ -346,9 +324,7 @@ typedef enum MenuState {
 				[UIView animateWithDuration:0.5
 								 animations:^{
 									 self.clipView.transform = CGAffineTransformMakeScale(0.9, 0.9);
-									 [self.VTopSpaceClipView setConstant:self.view.bounds.size.height*0.05];
-									 [self.VBottomSpaceClipView setConstant:self.view.bounds.size.height*0.05];
-									 self.HLeadingSpaceClipView.constant = 260;
+									 self.clipView.center = CGPointMake(kMaxHorizontalTimerBtnCenter, self.clipView.center.y);
 									 [self.view layoutIfNeeded];
 								 }];
 				
@@ -357,9 +333,7 @@ typedef enum MenuState {
 				[UIView animateWithDuration:0.5
 								 animations:^{
 									 self.clipView.transform = CGAffineTransformIdentity;
-									 [self.VTopSpaceClipView setConstant:0];
-									 [self.VBottomSpaceClipView setConstant:0];
-									 self.HLeadingSpaceClipView.constant = 0;
+									 self.clipView.center = CGPointMake(kMinHorizontalTimerBtnCenter, self.clipView.center.y);
 									 [self.view layoutIfNeeded];
 								 }];
 				
@@ -386,8 +360,7 @@ typedef enum MenuState {
 	if (self.clipView.center.x + t.x <= kMaxHorizontalRepeatBtnCenter &&
 		self.clipView.center.x + t.x >= kMinHorizontalRepeatBtnCenter){
 		
-		[self.HLeadingSpaceClipView setConstant:
-		 self.HLeadingSpaceClipView.constant + t.x];
+		self.clipView.center = CGPointMake(self.clipView.center.x + t.x, self.clipView.center.y);
 	}
 	
 	
@@ -413,9 +386,7 @@ typedef enum MenuState {
 				[UIView animateWithDuration:0.5
 								 animations:^{
 									 self.clipView.transform = CGAffineTransformMakeScale(0.9, 0.9);
-									 [self.VTopSpaceClipView setConstant:self.view.bounds.size.height*0.05];
-									 [self.VBottomSpaceClipView setConstant:self.view.bounds.size.height*0.05];
-									 self.HLeadingSpaceClipView.constant = -234;
+									  self.clipView.center = CGPointMake(kMinHorizontalRepeatBtnCenter, self.clipView.center.y);
 									 [self.view layoutIfNeeded];
 								 }];
 
@@ -423,9 +394,7 @@ typedef enum MenuState {
 				[UIView animateWithDuration:0.5
 								 animations:^{
 									 self.clipView.transform = CGAffineTransformIdentity;
-									 [self.VTopSpaceClipView setConstant:0];
-									 [self.VBottomSpaceClipView setConstant:0];
-									 self.HLeadingSpaceClipView.constant = 0;
+									 self.clipView.center = CGPointMake(kMaxHorizontalRepeatBtnCenter, self.clipView.center.y);
 									 [self.view layoutIfNeeded];
 								 }];
 			}
@@ -479,23 +448,23 @@ typedef enum MenuState {
 }
 
 - (IBAction)onDragViewTapped:(id)sender {
-	if (self.VSetupTimerViewSpacing.constant ==kBottomMarginDragView - 15){
-		NSLog(@"Tapped");
-		[UIView animateWithDuration:0.5
-						 animations:^{
-							 [self.VSetupTimerViewSpacing
-							  setConstant:0];
-							 [self.VBottomSpaceSetupTimerView
-							  setConstant:49];
-							 [self.view layoutIfNeeded];
-						 }completion:^(BOOL finished) {
-							 
-							 [self.setupTimerView bounceYPosition:5
-													 withDuration:0.1
-												  withRepeatCount:2];
-							 
-							 
-						 }];
-	}
+//	if (self.VSetupTimerViewSpacing.constant ==kBottomMarginDragView - 15){
+//		NSLog(@"Tapped");
+//		[UIView animateWithDuration:0.5
+//						 animations:^{
+////							 [self.VSetupTimerViewSpacing
+////							  setConstant:0];
+////							 [self.VBottomSpaceSetupTimerView
+////							  setConstant:49];
+//							 [self.view layoutIfNeeded];
+//						 }completion:^(BOOL finished) {
+//							 
+//							 [self.setupTimerView bounceYPosition:5
+//													 withDuration:0.1
+//												  withRepeatCount:2];
+//							 
+//							 
+//						 }];
+//	}
 }
 @end

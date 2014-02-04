@@ -16,18 +16,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *repeatBtn;
 @property (weak, nonatomic) IBOutlet UIView *bottomMenuView;
 @property (weak, nonatomic) IBOutlet UIView *dragView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *VDragViewSpacing;
 @property (weak, nonatomic) IBOutlet UIView *setupTimerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *VSetupTimerViewSpacing;
 @property (strong, nonatomic) IBOutlet UIView *baseView;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *HLeadingSpaceClipView;
 @property (strong, nonatomic) IBOutlet UIView *clipView;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *VTopSpaceClipView;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *VBottomSpaceClipView;
+
 
 @property (strong, nonatomic) IBOutlet UILabel *setTimerLabel;
 @property (strong, nonatomic) IBOutlet testview *progressTimer;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *VBottomSpaceSetupTimerView;
 
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *writtenTimerLabel;
