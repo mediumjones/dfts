@@ -223,6 +223,7 @@
 		EE6F4EDF1804F8F200B52841 /* testview.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F4EDE1804F8F200B52841 /* testview.m */; };
 		EE6F4FF418086BB100B52841 /* countDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F4FF318086BB100B52841 /* countDownView.m */; };
 		EE759CB917B56AD9007191A6 /* NSString+SSGizmo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE759CB817B56AD9007191A6 /* NSString+SSGizmo.m */; };
+		EE8B3FE818ADF95F00A24C3A /* motionDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8B3FE718ADF95F00A24C3A /* motionDataController.m */; };
 		EE9A84E617D6E40000E67EE0 /* DialTimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE9A84E517D6E40000E67EE0 /* DialTimerViewController.xib */; };
 		EE9A84EB17D903B200E67EE0 /* SSCountDownTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9A84EA17D903B200E67EE0 /* SSCountDownTimerView.m */; };
 		EE9C89E51798FCE600A8B4AB /* RLCSliderMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9C89E41798FCE600A8B4AB /* RLCSliderMenu.m */; };
@@ -684,6 +685,8 @@
 		EE6F4FF318086BB100B52841 /* countDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = countDownView.m; sourceTree = "<group>"; };
 		EE759CB717B56AD9007191A6 /* NSString+SSGizmo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SSGizmo.h"; sourceTree = "<group>"; };
 		EE759CB817B56AD9007191A6 /* NSString+SSGizmo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SSGizmo.m"; sourceTree = "<group>"; };
+		EE8B3FE618ADF95F00A24C3A /* motionDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = motionDataController.h; sourceTree = "<group>"; };
+		EE8B3FE718ADF95F00A24C3A /* motionDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = motionDataController.m; sourceTree = "<group>"; };
 		EE9A84E517D6E40000E67EE0 /* DialTimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DialTimerViewController.xib; sourceTree = "<group>"; };
 		EE9A84E917D903B200E67EE0 /* SSCountDownTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCountDownTimerView.h; sourceTree = "<group>"; };
 		EE9A84EA17D903B200E67EE0 /* SSCountDownTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCountDownTimerView.m; sourceTree = "<group>"; };
@@ -756,6 +759,8 @@
 				EE6F4EDE1804F8F200B52841 /* testview.m */,
 				EE6F4FF218086BB100B52841 /* countDownView.h */,
 				EE6F4FF318086BB100B52841 /* countDownView.m */,
+				EE8B3FE618ADF95F00A24C3A /* motionDataController.h */,
+				EE8B3FE718ADF95F00A24C3A /* motionDataController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1502,6 +1507,7 @@
 				EEA02E3117A6D55800F6BAEE /* RLCStartTimeCell.m in Sources */,
 				EE6F4EDF1804F8F200B52841 /* testview.m in Sources */,
 				EEA02E3617A6E62600F6BAEE /* UIDevice+deviceInfo.m in Sources */,
+				EE8B3FE818ADF95F00A24C3A /* motionDataController.m in Sources */,
 				EEA02E4517A888E900F6BAEE /* RLCEndTimeCell.m in Sources */,
 				EE759CB917B56AD9007191A6 /* NSString+SSGizmo.m in Sources */,
 				EE2DC1FF17C69789009C803C /* RLCStartTimeTitleCell.m in Sources */,
@@ -1778,6 +1784,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "circleDial/circleDial-Prefix.pch";
 				INFOPLIST_FILE = "circleDial/circleDial-Info.plist";
@@ -1787,6 +1794,7 @@
 					"\"$(SRCROOT)/circleDial\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1795,6 +1803,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "circleDial/circleDial-Prefix.pch";
 				INFOPLIST_FILE = "circleDial/circleDial-Info.plist";
@@ -1804,6 +1813,7 @@
 					"\"$(SRCROOT)/circleDial\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
