@@ -8,11 +8,16 @@
 
 #import "CountDownViewController.h"
 #import "MPFlipTransition.h"
+#import "motionDataController.h"
+
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
 #define kTopMarginDragView (IS_IPHONE_5  ? 258 : 0)
 #define kBottomMarginDragView (IS_IPHONE_5  ? 730 : 430)
 @interface CountDownViewController ()
+
+@property (nonatomic, assign) BOOL timerInProgress;
+@property (nonatomic, weak) motionDataController *motionDC;
 
 @end
 
@@ -48,6 +53,10 @@
 
 	[self.secondsTickBackgroundView shouldDisplaySeconds];
 	[self.secondsTickView shouldDisplaySeconds];
+	
+	//	setup motion manager
+	self.motionDC = [motionDataController sharedInstance];
+	self.timerInProgress = NO;
 }
 
 - (void)updateTimer:(NSNotification*)notification{
@@ -97,6 +106,8 @@
 	[self.countDownTimer setUpTimerWithCountDownTimer:countDownDuration];
 	[self.countDownTimer startTimer];
 	[self.countDownText.textColor = [UIColor blackColor]CGColor];
+	
+	[self.motionDC startMotionSensing];
 }
 
 - (void)didReceiveMemoryWarning

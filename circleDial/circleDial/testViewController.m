@@ -91,10 +91,10 @@
 
 -(void)outputAccelertionData:(CMAcceleration)acceleration
 {
-//	NSLog(@"Getting acceleration data");
-//	NSLog(@"x %f", acceleration.x);
-//	NSLog(@"y %f", acceleration.y);
-//	NSLog(@"z %f", acceleration.z);
+	NSLog(@"Getting acceleration data");
+	NSLog(@"x %f", acceleration.x);
+	NSLog(@"y %f", acceleration.y);
+	NSLog(@"z %f", acceleration.z);
 }
 
 - (void)setupTextLabels{

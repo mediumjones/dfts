@@ -324,7 +324,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="READY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8dg-dv-11y" userLabel="CountDownNumberLabel">
-                                <rect key="frame" x="46" y="160" width="228" height="131"/>
+                                <rect key="frame" x="46" y="163" width="228" height="131"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -363,7 +363,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background.png" width="320" height="568"/>
         <image name="background.png" width="320" height="568"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -448,23 +448,5 @@ typedef enum MenuState {
 }
 
 - (IBAction)onDragViewTapped:(id)sender {
-//	if (self.VSetupTimerViewSpacing.constant ==kBottomMarginDragView - 15){
-//		NSLog(@"Tapped");
-//		[UIView animateWithDuration:0.5
-//						 animations:^{
-////							 [self.VSetupTimerViewSpacing
-////							  setConstant:0];
-////							 [self.VBottomSpaceSetupTimerView
-////							  setConstant:49];
-//							 [self.view layoutIfNeeded];
-//						 }completion:^(BOOL finished) {
-//							 
-//							 [self.setupTimerView bounceYPosition:5
-//													 withDuration:0.1
-//												  withRepeatCount:2];
-//							 
-//							 
-//						 }];
-//	}
 }
 @end
