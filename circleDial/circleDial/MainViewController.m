@@ -16,8 +16,8 @@
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
 
-#define kTopMarginDragView (IS_IPHONE_5  ? 258.0 : 0.0)
-#define kBottomMarginDragView (IS_IPHONE_5  ? 730.0 : 430.0)
+#define kTopMarginDragView (IS_IPHONE_5  ? 217.0 : 0.0)
+#define kBottomMarginDragView (IS_IPHONE_5  ? 610.0 : 430.0)
 #define kTopMarginDialSetupView (IS_IPHONE_5  ? 249.5 : 205.5)
 #define kBottomMarginDialSetupView (IS_IPHONE_5  ? 483.0 : 395.0)
 #define SWIPE_UP_THRESHOLD -1000.0f
@@ -272,10 +272,10 @@ typedef enum MenuState {
 		
 		[[NSNotificationCenter defaultCenter]postNotificationName:@"DragViewPanned" object:nil userInfo:@{@"center": [NSNumber numberWithFloat:self.setupTimerView.center.y]}];
 		self.setupTimerView.center = CGPointMake(self.setupTimerView.center.x, self.setupTimerView.center.y + t.y);
-		float yValue = ((20.f / (kBottomMarginDragView - kTopMarginDragView) * self.setupTimerView.center.y + t.y) - 10);
-		NSLog(@"value is %f", yValue);
-		if (yValue >= 0 && yValue <= 20)
-		self.dragView.frame = CGRectMake(0, 20 - yValue, 320, 64);
+//		float yValue = ((20.f / (kBottomMarginDragView - kTopMarginDragView) * self.setupTimerView.center.y + t.y) - 10);
+//		NSLog(@"value is %f", yValue);
+//		if (yValue >= 0 && yValue <= 20)
+//		self.dragView.frame = CGRectMake(0, 20 - yValue, 320, 64);
 	}
 	
 	// But also, detect the swipe gesture
@@ -286,7 +286,9 @@ typedef enum MenuState {
 			[UIView animateWithDuration:0.5
 							 animations:^{
 								self.setupTimerView.center = CGPointMake(self.setupTimerView.center.x, kBottomMarginDragView);
-								[self.view layoutIfNeeded];
+								self.downArrowIconLabel.transform = CGAffineTransformRotate(self.downArrowIconLabel.transform,degreesToRadians(180));
+								self.startTitleLabel.text = @"stop";
+								 [self.view layoutIfNeeded];
 							}completion:^(BOOL finished) {
 
 								if (finished){
@@ -301,7 +303,8 @@ typedef enum MenuState {
 		}else{
 			[UIView animateWithDuration:0.5
 							 animations:^{
-								 self.setupTimerView.center = CGPointMake(self.setupTimerView.center.x, kTopMarginDragView);
+								self.setupTimerView.center = CGPointMake(self.setupTimerView.center.x, kTopMarginDragView);
+								 
 								[self.view layoutIfNeeded];
 							}completion:^(BOOL finished) {
 

@@ -12,6 +12,7 @@
 #import "RJ_NotificationView.h"
 #import <Parse/Parse.h>
 #import "testAppDelegate.h"
+#import "MainViewController.h"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
@@ -65,6 +66,13 @@
 	//	setup motion manager
 	self.motionDC = [motionDataController sharedInstance];
 	self.timerInProgress = NO;
+	
+	UIFont* stateFont = [UIFont fontWithName:@"KlinicSlab-Light" size:18];
+	self.stateLabel.font = stateFont;
+	self.stateLabel.layer.cornerRadius = 10.f;
+	self.stateLabel.layer.masksToBounds = YES;
+	self.stateLabel.layer.borderWidth = 0.5;
+	self.stateLabel.layer.borderColor = [UIColor grayColor].CGColor;
 }
 
 - (void)updateTimer:(NSNotification*)notification{
@@ -72,7 +80,7 @@
 	CGFloat timerViewCenterY = [[dict objectForKey:@"center"] floatValue];
 	NSLog(@"space is %f", timerViewCenterY);
 	if (!self.countDownTimer.isCountDownRunning){
-		CGFloat newBottom = (self.view.frame.size.height/2.f) / (730.f - 258.f) * (timerViewCenterY - 258);
+		CGFloat newBottom = (self.view.frame.size.height/2.f) / (610.f - 217.f) * (timerViewCenterY - 217);
 		NSLog(@"new bottom is %f", newBottom);
 		self.countDownTimer.center = CGPointMake(self.countDownTimer.center.x, newBottom);
 		
