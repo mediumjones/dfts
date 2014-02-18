@@ -11,8 +11,6 @@
 #import "UIDevice+deviceInfo.h"
 #import "NSString+SSGizmo.h"
 #import <QuartzCore/QuartzCore.h>
-#import "GPUImage.h"
-#import "GPUImageGaussianBlurFilter.h"
 #import "DialTimerViewController.h"
 #import "UIView+bounce.h"
 #import <CoreMotion/CoreMotion.h>

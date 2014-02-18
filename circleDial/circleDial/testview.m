@@ -257,13 +257,14 @@ typedef enum ProgressViewState {
 				newProgress = (DEGREES_TO_RADIANS(angle) + M_PI/2 - M_PI/9) / (2 * M_PI - 2 * M_PI/9);
 			}
 	
-			//NSLog(@"new progress is %f", newProgress);
+			NSLog(@"new progress is %f", newProgress);
 			if (newProgress <= 1 && newProgress >= 0.005 ){
 				self.timerLabel.text = [self timeFormatted:newProgress * self.secondsTotal];
 				//self.writtenTimerLabel.text = [self getWrittenTimeFromMinutes:newProgress * self.secondsTotal];
 				self.progress = newProgress;
 				NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-				[defaults setInteger:newProgress * self.secondsTotal forKey:@"timerDuration"];
+				int setSeconds = newProgress * self.secondsTotal;
+				[defaults setInteger:setSeconds forKey:@"timerDuration"];
 				[defaults synchronize];
 				
 						}

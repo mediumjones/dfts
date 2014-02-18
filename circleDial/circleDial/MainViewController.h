@@ -26,4 +26,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *writtenTimerLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *downArrowIconLabel;
+@property (weak, nonatomic) IBOutlet UILabel *startTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timerTitleLabel;
+@property (strong, nonatomic) IBOutlet UIView *bottomLine;
+@property (strong, nonatomic) IBOutlet UILabel *remindMeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @end

@@ -168,9 +168,9 @@
 	CGContextSetAllowsAntialiasing(context, true);
 	CGFloat radius;
 	if (self.bounds.size.width > self.bounds.size.height){
-		radius = (self.bounds.size.height/2) * 0.95;
+		radius = (self.bounds.size.height/2);
 	}else{
-		radius = (self.bounds.size.width/2) * 0.95;
+		radius = (self.bounds.size.width/2);
 	}
 	
     if (self.progress != 0) {
@@ -190,11 +190,11 @@
 											   startAngle:(CGFloat)(- M_PI_2 - self.progress * 2 * M_PI)
 												 endAngle:(CGFloat) - M_PI_2
 												clockwise:YES];
-		self.path.lineWidth = progressCircle.lineWidth * 2;
+		self.path.lineWidth = progressCircle.lineWidth * 4;
 		
 		CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
-		CGContextMoveToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y - rect.size.height*0.07);
-		CGContextAddLineToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y + rect.size.height*0.07);
+		CGContextMoveToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y - rect.size.height*0.05);
+		CGContextAddLineToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y + rect.size.height*0.05);
 		
 		CGContextSetLineWidth(context, 3.0); // this is set from now on until you explicitly change it
 		

@@ -45,6 +45,10 @@
 		<string>Klinic Slab-Medium.ttf</string>
 		<string>KS-Normal.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>iPhone</string>
 	<key>UIRequiredDeviceCapabilities</key>

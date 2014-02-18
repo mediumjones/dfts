@@ -8,6 +8,7 @@
 
 #import "SSProgressView.h"
 #import <QuartzCore/QuartzCore.h>
+#import <Parse/Parse.h>
 
 #define   DEGREES_TO_RADIANS(degrees)  ((M_PI * degrees)/ 180)
 #define   RADIANS_TO_DEGREES(radian)   radian * 180 / M_PI
@@ -92,6 +93,26 @@ typedef enum ProgressViewState {
 }
 
 - (void)startTimer{
+	// Create our Installation query
+	// Build a query to match users with a birthday today
+	PFQuery *innerQuery = [PFUser query];
+	
+	// Use hasPrefix: to only match against the month/date
+	[innerQuery whereKey:@"birthday" hasPrefix:@"08/15"];
+	
+	// Build the actual push notification target query
+	PFQuery *query = [PFInstallation query];
+	
+	// only return Installations that belong to a User that
+	// matches the innerQuery
+	[query whereKey:@"user" matchesQuery:innerQuery];
+	
+	// Send the notification.
+	PFPush *push = [[PFPush alloc] init];
+	[push setQuery:query];
+	[push setMessage:@"Happy Birthday!"];
+	[push sendPushInBackground];
+	
 	[self.sTimer fire];
 	[self setUpInProgressTimer];
 }
