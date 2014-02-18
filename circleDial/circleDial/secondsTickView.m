@@ -40,13 +40,13 @@
 		NSMutableParagraphStyle *paragraphstyle = [[NSMutableParagraphStyle alloc] init];
 		paragraphstyle.alignment = NSTextAlignmentCenter;
 		
-		CTFontRef fontFace = CTFontCreateWithName(CFSTR("KlinicSlab-Light"), 35.0, NULL);
+		CTFontRef fontFace = CTFontCreateWithName(CFSTR("KlinicSlab-Light"), 28.0, NULL);
 		
 		CTFontDescriptorRef prefontFace = CTFontCopyFontDescriptor(fontFace);
 		CTFontDescriptorRef modFace = CTFontDescriptorCreateCopyWithFeature(prefontFace,
 																			(__bridge CFNumberRef)[NSNumber numberWithInt:21], // Number Case
 																			(__bridge CFNumberRef)[NSNumber numberWithInt:1]); // Lining Figures
-		_numberFontRef = CTFontCreateWithFontDescriptor(modFace, 35.0, NULL);
+		_numberFontRef = CTFontCreateWithFontDescriptor(modFace, 28.0, NULL);
 		
 		NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:
 									   [NSString stringWithFormat:@"%02d", self.currentSeconds]
@@ -92,7 +92,7 @@
 }
 
 - (CGRect)getRectForText{
-	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Light" size:35];
+	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Light" size:28];
 	CGFloat fontHeight = textFont.pointSize;
     CGFloat yOffset = (self.frame.size.height - fontHeight) / 2.0;
 	

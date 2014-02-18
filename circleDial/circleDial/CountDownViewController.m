@@ -9,6 +9,9 @@
 #import "CountDownViewController.h"
 #import "MPFlipTransition.h"
 #import "motionDataController.h"
+#import "RJ_NotificationView.h"
+#import <Parse/Parse.h>
+#import "testAppDelegate.h"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
@@ -50,6 +53,11 @@
 											 selector:@selector(updateTimer:)
 												 name:@"DragViewPanned"
 											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(startBreak:)
+												 name:@"userMoved"
+											   object:nil];
 
 	[self.secondsTickBackgroundView shouldDisplaySeconds];
 	[self.secondsTickView shouldDisplaySeconds];
@@ -75,7 +83,7 @@
 //			self.countDownTimer.progress = newProgress;
 //			[self.countDownTimer setNeedsDisplay];
 //		}
-//
+		
 		// Animate the headerView and slidingHeaderView frame
 		if (timerViewCenterY >= 490){
 			if ([self.countDownText.text isEqualToString:@"READY"]){
@@ -96,11 +104,13 @@
 			self.countDownText.textColor = [UIColor orangeColor];
 		}
 	}
+
 }
+
 
 - (void)startTimer{
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	int countDownDuration = [defaults integerForKey:@"timerDuration"];
+	int countDownDuration = (int)[defaults integerForKey:@"timerDuration"];
 	NSLog(@"Setting duration for %d", countDownDuration);
 	
 	[self.countDownTimer setUpTimerWithCountDownTimer:countDownDuration];
@@ -134,7 +144,7 @@
 	
 	NSString *formattedTime;
 	
-	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Light" size:75];
+	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Light" size:80];
 	self.countDownText.font = textFont;
 	formattedTime = [NSString stringWithFormat:@"%01u:%02u", h, m];
 	
@@ -178,6 +188,11 @@
 }
 
 - (void)updateOnBreakTime{
+	self.countDownText.text = @"BREAK";
+	self.countDownText.textColor = [UIColor greenColor];
+}
+
+- (void)startBreak:(NSNotification*)notification{
 	self.countDownText.text = @"BREAK";
 	self.countDownText.textColor = [UIColor greenColor];
 }

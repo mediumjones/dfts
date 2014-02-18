@@ -10,15 +10,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+bounce.h"
 #import "NSString+SSGizmo.h"
+#import "RJ_NotificationView.h"
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
 
-#define kTopMarginDragView (IS_IPHONE_5  ? 258 : 0)
-#define kBottomMarginDragView (IS_IPHONE_5  ? 730 : 430)
+#define kTopMarginDragView (IS_IPHONE_5  ? 258.0 : 0.0)
+#define kBottomMarginDragView (IS_IPHONE_5  ? 730.0 : 430.0)
 #define kTopMarginDialSetupView (IS_IPHONE_5  ? 249.5 : 205.5)
-#define kBottomMarginDialSetupView (IS_IPHONE_5  ? 483 : 395)
+#define kBottomMarginDialSetupView (IS_IPHONE_5  ? 483.0 : 395.0)
 #define SWIPE_UP_THRESHOLD -1000.0f
 #define SWIPE_DOWN_THRESHOLD 1000.0f
 
@@ -29,6 +30,8 @@
 
 #define SWIPE_LEFT_THRESHOLD -1000.0f
 #define SWIPE_RIGHT_THRESHOLD 1000.0f
+
+#define degreesToRadians(x) (M_PI * x / 180.0)
 
 typedef enum MenuState {
 	MENU_OFF,
@@ -43,6 +46,7 @@ typedef enum MenuState {
 @property (nonatomic, assign) BOOL isTimerButtonBeingDragged;
 @property (nonatomic, assign) BOOL isRepeatButtonBeingDragged;
 @property (nonatomic, assign) BOOL disablePanUpdate;
+@property (nonatomic, strong) RJ_NotificationView *notificationView;
 
 @end
 
@@ -64,16 +68,38 @@ typedef enum MenuState {
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+	self.notificationView = [[RJ_NotificationView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
+    [self.view addSubview:self.notificationView];
+    [self.view sendSubviewToBack:self.notificationView];
+	
+	// Setup fonts for pull down and start timer text
+	UIFont* timerTextFont =
+	[UIFont fontWithName:@"KS-Normal"
+					size:20];
+	
+	self.startTitleLabel.font = timerTextFont;
+	self.timerTitleLabel.font = timerTextFont;
+	
+	// Setup icon for dropdown label
+	UIFont* downfont =
+	[UIFont fontWithName:@"SS Gizmo"
+					size:22];
+	
+	self.downArrowIconLabel.font = downfont;
+	self.downArrowIconLabel.text = [NSString convertUnicode:@"0x23EA"];
+	self.downArrowIconLabel.textColor = [UIColor greenColor];
+	self.downArrowIconLabel.transform =
+	CGAffineTransformMakeRotation(degreesToRadians(-90));
 }
 
 - (void)viewWillAppear:(BOOL)animated{
 	[super viewWillAppear:animated];
 	
 	// Setup menu button
-	UIFont* font = [UIFont fontWithName:@"SS Gizmo" size:30];
+	UIFont* font = [UIFont fontWithName:@"SS Gizmo" size:28];
 	self.timerBtn.titleLabel.font = font;
 	self.timerBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-	[self.timerBtn setTitle:[NSString convertUnicode:@"0x1F514"]
+	[self.timerBtn setTitle:[NSString convertUnicode:@"0x23F0"]
 					 forState:UIControlStateNormal];
 	[self.timerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	
@@ -96,10 +122,16 @@ typedef enum MenuState {
 	self.setTimerLabel.font = reminderTextFont;
 	self.setTimerLabel.textAlignment = NSTextAlignmentCenter;
 	
-	UIFont* timerTextFont = [UIFont fontWithName:@"KS-Normal" size:16];
+	UIFont* timerTextFont = [UIFont fontWithName:@"KS-Normal" size:22];
 	self.writtenTimerLabel.font = timerTextFont;
 	self.writtenTimerLabel.textAlignment = NSTextAlignmentCenter;
 
+	UIFont* remindMeTextFont = [UIFont fontWithName:@"KlinicSlab-Medium" size:16];
+	self.remindMeLabel.font = remindMeTextFont;
+	self.remindMeLabel.textAlignment = NSTextAlignmentCenter;
+	
+	UIFont* titleFont = [UIFont fontWithName:@"KS-Normal" size:32];
+	self.titleLabel.font = titleFont;
 	
 	// Setup listener for setupDialView
 	[self.setupTimerView addObserver:self
@@ -238,11 +270,14 @@ typedef enum MenuState {
 	if (self.setupTimerView.center.y + t.y <= kBottomMarginDragView &&
 		self.setupTimerView.center.y + t.y >= kTopMarginDragView){
 		
-		//NSLog(@"HEllo");
 		[[NSNotificationCenter defaultCenter]postNotificationName:@"DragViewPanned" object:nil userInfo:@{@"center": [NSNumber numberWithFloat:self.setupTimerView.center.y]}];
 		self.setupTimerView.center = CGPointMake(self.setupTimerView.center.x, self.setupTimerView.center.y + t.y);
+		float yValue = ((20.f / (kBottomMarginDragView - kTopMarginDragView) * self.setupTimerView.center.y + t.y) - 10);
+		NSLog(@"value is %f", yValue);
+		if (yValue >= 0 && yValue <= 20)
+		self.dragView.frame = CGRectMake(0, 20 - yValue, 320, 64);
 	}
-//	
+	
 	// But also, detect the swipe gesture
 	if (sender.state == UIGestureRecognizerStateEnded)
 	{		
@@ -257,6 +292,9 @@ typedef enum MenuState {
 								if (finished){
 									[[NSNotificationCenter defaultCenter]postNotificationName:@"startTimer"
 																					   object:nil];
+//									[self.notificationView showNotificationWithAutoDismiss:^(BOOL finished) {
+//										
+//									}];
 								}
 								
 			}];
@@ -449,4 +487,10 @@ typedef enum MenuState {
 
 - (IBAction)onDragViewTapped:(id)sender {
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 @end
