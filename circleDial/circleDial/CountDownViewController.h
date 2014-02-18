@@ -17,4 +17,5 @@
 @property (strong, nonatomic) IBOutlet secondsTickView *secondsTickView;
 @property (strong, nonatomic) IBOutlet UILabel *countDownTextLabel;
 @property (strong, nonatomic) IBOutlet UILabel *countDownText;
+@property (strong, nonatomic) IBOutlet UILabel *stateLabel;
 @end

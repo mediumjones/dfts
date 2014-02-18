@@ -100,21 +100,21 @@
                                                         </connections>
                                                     </view>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="start" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mxY-wv-G68" userLabel="StartLabel">
-                                                        <rect key="frame" x="18" y="16" width="100" height="21"/>
+                                                        <rect key="frame" x="18" y="12" width="100" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.56862747670000002" green="0.72156864399999998" blue="0.74117648599999997" alpha="1" colorSpace="deviceRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SbX-za-2CP" userLabel="DownArrowIconLabel">
-                                                        <rect key="frame" x="139" y="15" width="42" height="21"/>
+                                                        <rect key="frame" x="139" y="11" width="42" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="timer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i2X-Li-oAd" userLabel="TimerLabel">
-                                                        <rect key="frame" x="196" y="16" width="100" height="21"/>
+                                                        <rect key="frame" x="196" y="12" width="100" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.56862747670000002" green="0.72156864399999998" blue="0.74117648599999997" alpha="1" colorSpace="deviceRGB"/>
@@ -178,7 +178,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.13333334029999999" green="0.1764705926" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.13333334029999999" green="0.1764705926" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>
@@ -357,69 +357,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="mep-kf-lf0" customClass="countDownView">
-                                <rect key="frame" x="20" y="-100" width="280" height="233"/>
+                                <rect key="frame" x="-10" y="-100" width="340" height="285"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="UKu-16-FCs" customClass="secondsTickView">
-                                <rect key="frame" x="40" y="390" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" id="ieg-nj-ICY" customClass="secondsTickView">
-                                <rect key="frame" x="270" y="390" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9U0-CK-O1L" userLabel="CountDownTextLabel">
-                                <rect key="frame" x="77" y="380" width="166" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.70597496810000004" green="0.70597496810000004" blue="0.70597496810000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="READY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8dg-dv-11y" userLabel="CountDownNumberLabel">
-                                <rect key="frame" x="46" y="163" width="228" height="131"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="46" y="140" width="228" height="131"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" id="baR-Ly-KtA" customClass="secondsTickView">
-                                <rect key="frame" x="135" y="275" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="137" y="237" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="tmo-Jt-Ekf" customClass="secondsTickView">
-                                <rect key="frame" x="135" y="275" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="137" y="237" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view alpha="0.69999999999999996" contentMode="scaleToFill" id="hZx-Ub-F2k">
-                                <rect key="frame" x="0.0" y="0.5" width="320" height="59"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" id="avG-Cb-g0e" userLabel="RightLine">
-                                <rect key="frame" x="203" y="300" width="20" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="203" y="262" width="20" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="DFh-fg-ugy" userLabel="LeftLine">
-                                <rect key="frame" x="97" y="300" width="20" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="97" y="262" width="20" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="motion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RrG-iP-7mF" userLabel="StateLabel">
+                                <rect key="frame" x="120" y="140" width="80" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
                     <connections>
                         <outlet property="countDownText" destination="8dg-dv-11y" id="8p3-rg-50O"/>
-                        <outlet property="countDownTextLabel" destination="9U0-CK-O1L" id="GGn-zH-96V"/>
                         <outlet property="countDownTimer" destination="mep-kf-lf0" id="mDd-hS-z79"/>
                         <outlet property="secondsTickBackgroundView" destination="baR-Ly-KtA" id="PiF-Vu-ovx"/>
                         <outlet property="secondsTickView" destination="tmo-Jt-Ekf" id="aC5-Av-OcY"/>
+                        <outlet property="stateLabel" destination="RrG-iP-7mF" id="rTZ-bn-FFQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rkd-3f-iwG" userLabel="First Responder" sceneMemberID="firstResponder"/>

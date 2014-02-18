@@ -46,7 +46,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
 	self = [super initWithCoder:aDecoder];
 	if (self){
-		_lineWidth = 30.0;
+		_lineWidth = 38.0;
 		_remainderColor = [UIColor grayColor];
 		self.backgroundColor = [UIColor clearColor];
 		_isCountDownRunning = NO;
@@ -95,29 +95,29 @@
 }
 
 - (void)startTimer{
-	if (!self.isCountDownRunning){
-		[self.sTimer fire];
-		self.isCountDownRunning = YES;
-	}
-	
-	if ([CMMotionActivityManager isActivityAvailable]) {
-        __weak typeof(self) weakSelf = self;
-        [self.activities removeAllObjects];
-        [self.motionActivitiyManager startActivityUpdatesToQueue:[NSOperationQueue mainQueue]
-                                                     withHandler:^(CMMotionActivity *activity) {
-                                                        NSLog(@"%s %@", __PRETTY_FUNCTION__, activity);
-                                                         [weakSelf.activities addObject:activity];
-														 if (!activity.stationary){
-
-															 self.aTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(updateOnBreakTime) userInfo:nil repeats:NO];
-														 }else{
-															 if (self.aTimer){
-																 [self.aTimer invalidate];
-																 self.aTimer = nil;
-															 }
-														 }
-                                                     }];
-	}
+//	if (!self.isCountDownRunning){
+//		[self.sTimer fire];
+//		self.isCountDownRunning = YES;
+//	}
+//	
+//	if ([CMMotionActivityManager isActivityAvailable]) {
+//        __weak typeof(self) weakSelf = self;
+//        [self.activities removeAllObjects];
+//        [self.motionActivitiyManager startActivityUpdatesToQueue:[NSOperationQueue mainQueue]
+//                                                     withHandler:^(CMMotionActivity *activity) {
+//                                                        NSLog(@"%s %@", __PRETTY_FUNCTION__, activity);
+//                                                         [weakSelf.activities addObject:activity];
+//														 if (!activity.stationary){
+//
+//															 self.aTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(updateOnBreakTime) userInfo:nil repeats:NO];
+//														 }else{
+//															 if (self.aTimer){
+//																 [self.aTimer invalidate];
+//																 self.aTimer = nil;
+//															 }
+//														 }
+//                                                     }];
+//	}
 }
 
 - (BOOL)isRestNeeded{
@@ -155,7 +155,7 @@
 	
 	//NSLog(@"%f", totalActiveSeconds/5.f);
 	
-	return (totalActiveSeconds / 5.f > .48) ? YES: NO;
+	return (totalActiveSeconds / 5.f > .48) ? NO: NO;
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -168,15 +168,15 @@
 	CGContextSetAllowsAntialiasing(context, true);
 	CGFloat radius;
 	if (self.bounds.size.width > self.bounds.size.height){
-		radius = (self.bounds.size.height/2);
+		radius = (self.bounds.size.height * 0.9 /2) ;
 	}else{
-		radius = (self.bounds.size.width/2);
+		radius = (self.bounds.size.width * 0.9 /2);
 	}
 	
     if (self.progress != 0) {
         //draw progress circle
         UIBezierPath *progressCircle = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.bounds.size.width / 2,self.bounds.size.height / 2)
-                                                                      radius:radius - self.lineWidth / 2
+                                                                      radius:radius - self.lineWidth / 2.5
                                                                   startAngle:(CGFloat)(- M_PI_2 - self.progress * 2 * M_PI)
                                                                     endAngle:(CGFloat) - M_PI_2
                                                                    clockwise:YES];
@@ -186,15 +186,15 @@
 		[self DrawGradientToProgress:context withPath:outerPath];
 		
 		self.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.bounds.size.width / 2,self.bounds.size.height / 2)
-												   radius:radius
+												   radius:radius - self.lineWidth/ 2.5
 											   startAngle:(CGFloat)(- M_PI_2 - self.progress * 2 * M_PI)
 												 endAngle:(CGFloat) - M_PI_2
 												clockwise:YES];
-		self.path.lineWidth = progressCircle.lineWidth * 4;
+		self.path.lineWidth = progressCircle.lineWidth * 5;
 		
 		CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
-		CGContextMoveToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y - rect.size.height*0.05);
-		CGContextAddLineToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y + rect.size.height*0.05);
+		CGContextMoveToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y - rect.size.height*0.07);
+		CGContextAddLineToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y + rect.size.height*0.07);
 		
 		CGContextSetLineWidth(context, 3.0); // this is set from now on until you explicitly change it
 		
