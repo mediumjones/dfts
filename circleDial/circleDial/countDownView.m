@@ -174,23 +174,32 @@
 	}
 	
     if (self.progress != 0) {
-        //draw progress circle
+		//draw progress circle
         UIBezierPath *progressCircle = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.bounds.size.width / 2,self.bounds.size.height / 2)
                                                                       radius:radius - self.lineWidth / 2.5
                                                                   startAngle:(CGFloat)(- M_PI_2 - self.progress * 2 * M_PI)
                                                                     endAngle:(CGFloat) - M_PI_2
                                                                    clockwise:YES];
-		
+
 		CGPathRef outerPath = CGPathCreateCopyByStrokingPath(progressCircle.CGPath, NULL, self.lineWidth, kCGLineCapButt, kCGLineJoinBevel, 0);
 		
-		[self DrawGradientToProgress:context withPath:outerPath];
+		
 		
 		self.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.bounds.size.width / 2,self.bounds.size.height / 2)
 												   radius:radius - self.lineWidth/ 2.5
-											   startAngle:(CGFloat)(- M_PI_2 - self.progress * 2 * M_PI)
-												 endAngle:(CGFloat) - M_PI_2
+											   startAngle:(CGFloat)(- M_PI_2)
+												 endAngle:(CGFloat)(3 * M_PI_2)
 												clockwise:YES];
-		self.path.lineWidth = progressCircle.lineWidth * 5;
+		self.path.lineWidth = self.lineWidth;
+		CGPathRef innerPath = CGPathCreateCopyByStrokingPath(self.path.CGPath, NULL, self.lineWidth * 0.8, kCGLineCapButt, kCGLineJoinBevel, 0);
+		
+		
+		[self DrawBackground:context withPath:innerPath];
+        
+		[self DrawGradientToProgress:context withPath:outerPath];
+
+		
+		//[self.path stroke];
 		
 		CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
 		CGContextMoveToPoint(context, progressCircle.currentPoint.x - 1.5, progressCircle.currentPoint.y - rect.size.height*0.07);
@@ -217,8 +226,7 @@
 	//NSLog(@"progress value is %f", ((float)self.secondsRemaining / (float)self.secondsTotal));
 	float elapsedTime = self.secondsTotal - self.secondsRemaining;
 	[self.delegate updateTextLabelForCurrentTimer:elapsedTime];
-	
-	NSLog(@"reset timer %hhd", [self isRestNeeded]);
+	[self.delegate updateTextLabelForRemainingTimer:self.secondsRemaining + 60];
 	
     if (progressValue == 0)
     {
@@ -266,6 +274,31 @@
 	CGContextRestoreGState(context);
 }
 
+- (void)DrawBackground:(CGContextRef)context withPath:(CGPathRef)path{
+	CGContextSaveGState(context);
+	CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+	
+	CGFloat comps[] = {0.0,0.0,0.0,0.5,0.0,0.0,0.0,0.5};
+	CGFloat locs[] = {1.0,0.0, 0.5, 0.5, 0.75,};
+	CGGradientRef g = CGGradientCreateWithColorComponents(space, comps, locs, 2);
+	
+	NSArray *colors = [NSArray arrayWithObjects:
+					   (id)[UIColor colorWithWhite: 1.0 alpha: 1.0].CGColor,
+					   (id)[UIColor colorWithWhite: 0.0 alpha: 1.0].CGColor, nil];
+	CGGradientRef gradients = CGGradientCreateWithColors(space, (__bridge CFArrayRef) colors, locs);
+	
+	CGContextAddPath(context, path);
+	CGContextClip(context);
+	
+	CGPoint myStartPoint, myEndPoint;
+	myStartPoint.x = 0.0;
+	myStartPoint.y = self.frame.size.height;
+	myEndPoint.x = self.frame.size.width;
+	myEndPoint.y = 0.0;
+	CGContextDrawLinearGradient (context, gradients, myStartPoint, myEndPoint, 0);
+	CGContextRestoreGState(context);
+}
+
 - (void)updateOnBreakTime{
 	[self startBreakTimer];
 }
@@ -283,6 +316,11 @@
 - (void)checkBreakTimer{
 	self.breakSecondsRemaining--;
 	NSLog(@"Current interval %d", self.breakSecondsRemaining);
+}
+
+- (void)stopTimer{
+	[self.sTimer invalidate];
+	self.sTimer = nil;
 }
 
 @end

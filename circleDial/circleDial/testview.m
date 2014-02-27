@@ -105,7 +105,7 @@ typedef enum ProgressViewState {
 	CGContextSetShouldAntialias(context, true);
 	CGContextSetAllowsAntialiasing(context, true);
 	CGFloat radius;
-	NSLog(@"height is %f width is %f", self.bounds.size.height, self.bounds.size.width);
+
 	if (self.bounds.size.width > self.bounds.size.height){
 		radius = self.bounds.size.height/2 * 0.88;
 	}else{
@@ -178,7 +178,6 @@ typedef enum ProgressViewState {
 		self.progress = progressValue;
 //		self.timerLabel.text = [self timeFormatted:self.secondsRemaining];
 //		self.writtenTimerLabel.text = [self getWrittenTimeFromMinutes:self.secondsRemaining];
-		NSLog(@"current seconds is %f",self.secondsRemaining);
 	
 	    //redraw back & progress circles
 	    [self setNeedsDisplay];
@@ -257,7 +256,6 @@ typedef enum ProgressViewState {
 				newProgress = (DEGREES_TO_RADIANS(angle) + M_PI/2 - M_PI/9) / (2 * M_PI - 2 * M_PI/9);
 			}
 	
-			NSLog(@"new progress is %f", newProgress);
 			if (newProgress <= 1 && newProgress >= 0.005 ){
 				self.timerLabel.text = [self timeFormatted:newProgress * self.secondsTotal];
 				//self.writtenTimerLabel.text = [self getWrittenTimeFromMinutes:newProgress * self.secondsTotal];

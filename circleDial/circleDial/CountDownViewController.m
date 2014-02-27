@@ -67,12 +67,15 @@
 	self.motionDC = [motionDataController sharedInstance];
 	self.timerInProgress = NO;
 	
-	UIFont* stateFont = [UIFont fontWithName:@"KlinicSlab-Light" size:18];
+	UIFont* stateFont = [UIFont fontWithName:@"KS-Normal" size:18];
 	self.stateLabel.font = stateFont;
 	self.stateLabel.layer.cornerRadius = 10.f;
 	self.stateLabel.layer.masksToBounds = YES;
-	self.stateLabel.layer.borderWidth = 0.5;
+	self.stateLabel.layer.borderWidth = 1.5;
 	self.stateLabel.layer.borderColor = [UIColor grayColor].CGColor;
+	
+	UIFont* onBreakFont = [UIFont fontWithName:@"KlinicSlab-Light" size:22];
+	self.onBreakLabel.font = onBreakFont;
 }
 
 - (void)updateTimer:(NSNotification*)notification{
@@ -126,6 +129,9 @@
 	[self.countDownText.textColor = [UIColor blackColor]CGColor];
 	
 	[self.motionDC startMotionSensing];
+	
+	self.stateLabel.text =@"motionless";
+	self.timerInProgress = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -141,15 +147,28 @@
 	NSUInteger m = (elapsedTime / 60) % 60;
 	NSUInteger s = elapsedTime % 60;
 	
-	[MPFlipTransition transitionFromView:[self.secondsTickBackgroundView updateCurrentSeconds:s-1]
-								  toView:[self.secondsTickView updateCurrentSeconds:s]
-								duration:[MPTransition defaultDuration]
-								   style:MPFlipStyleFlipDirectionBit(6)
-						transitionAction:MPTransitionActionNone
-							  completion:^(BOOL finished) {
-							  }
-	 ];
-	
+	NSLog(@"s is %d", s);
+
+	if (s == 0){
+		[MPFlipTransition transitionFromView:[self.secondsTickBackgroundView updateCurrentSeconds:59]
+									  toView:[self.secondsTickView updateCurrentSeconds:s]
+									duration:[MPTransition defaultDuration]
+									   style:MPFlipStyleFlipDirectionBit(6)
+							transitionAction:MPTransitionActionNone
+								  completion:^(BOOL finished) {
+								  }
+		 ];
+	}else{
+		[MPFlipTransition transitionFromView:[self.secondsTickBackgroundView updateCurrentSeconds:s-1]
+									  toView:[self.secondsTickView updateCurrentSeconds:s]
+									duration:[MPTransition defaultDuration]
+									   style:MPFlipStyleFlipDirectionBit(6)
+							transitionAction:MPTransitionActionNone
+								  completion:^(BOOL finished) {
+								  }
+		 ];
+	}
+
 	NSString *formattedTime;
 	
 	UIFont* textFont = [UIFont fontWithName:@"KlinicSlab-Light" size:80];
@@ -190,18 +209,65 @@
 
 }
 
+- (void)updateTextLabelForRemainingTimer:(int)remainingTime{
+	NSUInteger h = remainingTime / 3600;
+	NSUInteger m = (remainingTime / 60) % 60;
+	
+	NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+	[f setNumberStyle:NSNumberFormatterSpellOutStyle];
+	
+	NSString *hoursString = [f stringFromNumber:[NSNumber numberWithInt:h]];
+	NSString *minsString = [f stringFromNumber:[NSNumber numberWithInt:m]];
+	NSString *returnString;
+	
+	if (h <= 1 && m <= 1){
+		returnString = [NSString stringWithFormat:@"%@ hour : %@ minute",hoursString, minsString];
+	}else if (h <= 1 && m > 1){
+		returnString = [NSString stringWithFormat:@"%@ hour : %@ minutes",hoursString, minsString];
+	}else if (h > 1 && m <= 1){
+		returnString = [NSString stringWithFormat:@"%@ hours : %@ minute",hoursString, minsString];
+	}else if (h > 1 && m > 1){
+		returnString = [NSString stringWithFormat:@"%@ hours : %@ minutes",hoursString, minsString];
+	}
+	
+	NSString *updateString = [[returnString stringByReplacingOccurrencesOfString:@"zero hour :" withString:@""] stringByReplacingOccurrencesOfString:@"zero minute :" withString:@""];;
+	[[NSNotificationCenter defaultCenter]postNotificationName:@"UPDATEWRITTENTIME" object:nil userInfo:@{@"timeString": updateString}];
+	
+}
+
 - (void)updateOnTimerIsUp{
 	self.countDownText.text = @"0:00";
 	self.countDownText.textColor = [UIColor redColor];
+	
+	[[NSNotificationCenter defaultCenter]postNotificationName:@"ONBREAK"
+													   object:nil
+													 userInfo:nil];
+	
+	[UIView animateWithDuration:0.5 animations:^{
+		self.onBreakLeftDiamondView.alpha = 1.0;
+		self.onBreakRightDiamondView.alpha = 1.0;
+		self.onBreakLabel.alpha = 1.0;
+	}];
+	self.timerInProgress = NO;
+	[self.countDownTimer stopTimer];
 }
 
 - (void)updateOnBreakTime{
 	self.countDownText.text = @"BREAK";
 	self.countDownText.textColor = [UIColor greenColor];
+	self.timerInProgress = NO;
 }
 
 - (void)startBreak:(NSNotification*)notification{
-	self.countDownText.text = @"BREAK";
-	self.countDownText.textColor = [UIColor greenColor];
+	self.stateLabel.text = @"motion";
+	
+	[UIView animateWithDuration:0.5 animations:^{
+		self.onBreakLeftDiamondView.alpha = 1.0;
+		self.onBreakRightDiamondView.alpha = 1.0;
+		self.onBreakLabel.alpha = 1.0;
+	}];
+	
+	[self.countDownTimer stopTimer];
+	self.timerInProgress = NO;
 }
 @end

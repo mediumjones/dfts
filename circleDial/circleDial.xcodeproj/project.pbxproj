@@ -91,6 +91,9 @@
 		EEA02E4517A888E900F6BAEE /* RLCEndTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA02E4417A888E700F6BAEE /* RLCEndTimeCell.m */; };
 		EEA02E4717A888FA00F6BAEE /* RLCEndTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEA02E4617A888F900F6BAEE /* RLCEndTimeCell.xib */; };
 		EEA02E4917A88CA000F6BAEE /* bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EEA02E4817A88CA000F6BAEE /* bg-568h@2x.png */; };
+		EEA5247518BF0FAA00376BC4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5247418BF0FAA00376BC4 /* MapKit.framework */; };
+		EEA5247A18BF104E00376BC4 /* breakSuggestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA5247918BF104E00376BC4 /* breakSuggestionController.m */; };
+		EEA5247D18BF2A9800376BC4 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA5247C18BF2A9800376BC4 /* MapPoint.m */; };
 		EEBBBC2C18395D9B00B26B1C /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBBBC2218395D9B00B26B1C /* AppIcon29x29.png */; };
 		EEBBBC2D18395D9B00B26B1C /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBBBC2318395D9B00B26B1C /* AppIcon29x29@2x.png */; };
 		EEBBBC2E18395D9B00B26B1C /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBBBC2418395D9B00B26B1C /* AppIcon40x40.png */; };
@@ -234,6 +237,11 @@
 		EEA02E4417A888E700F6BAEE /* RLCEndTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCEndTimeCell.m; sourceTree = "<group>"; };
 		EEA02E4617A888F900F6BAEE /* RLCEndTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RLCEndTimeCell.xib; sourceTree = "<group>"; };
 		EEA02E4817A88CA000F6BAEE /* bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-568h@2x.png"; sourceTree = "<group>"; };
+		EEA5247418BF0FAA00376BC4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapKit.framework; sourceTree = "<group>"; };
+		EEA5247818BF104E00376BC4 /* breakSuggestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = breakSuggestionController.h; sourceTree = "<group>"; };
+		EEA5247918BF104E00376BC4 /* breakSuggestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = breakSuggestionController.m; sourceTree = "<group>"; };
+		EEA5247B18BF2A9800376BC4 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
+		EEA5247C18BF2A9800376BC4 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
 		EEBBBC2218395D9B00B26B1C /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
 		EEBBBC2318395D9B00B26B1C /* AppIcon29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon29x29@2x.png"; sourceTree = "<group>"; };
 		EEBBBC2418395D9B00B26B1C /* AppIcon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon40x40.png; sourceTree = "<group>"; };
@@ -256,6 +264,7 @@
 				EE8B400B18B0502F00A24C3A /* StoreKit.framework in Frameworks */,
 				EE8B400918B0502900A24C3A /* Security.framework in Frameworks */,
 				EE8B400718B0501E00A24C3A /* MobileCoreServices.framework in Frameworks */,
+				EEA5247518BF0FAA00376BC4 /* MapKit.framework in Frameworks */,
 				EE8B400518B0501600A24C3A /* libz.dylib in Frameworks */,
 				EE8B400318B0500700A24C3A /* CFNetwork.framework in Frameworks */,
 				EE8B400118B04FEE00A24C3A /* AudioToolbox.framework in Frameworks */,
@@ -302,8 +311,6 @@
 				EE6F4EDE1804F8F200B52841 /* testview.m */,
 				EE6F4FF218086BB100B52841 /* countDownView.h */,
 				EE6F4FF318086BB100B52841 /* countDownView.m */,
-				EE8B3FE618ADF95F00A24C3A /* motionDataController.h */,
-				EE8B3FE718ADF95F00A24C3A /* motionDataController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -428,6 +435,7 @@
 		EE574EB5178F77CA00904CF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EEA5247418BF0FAA00376BC4 /* MapKit.framework */,
 				EE8B400C18B0503800A24C3A /* SystemConfiguration.framework */,
 				EE8B400A18B0502F00A24C3A /* StoreKit.framework */,
 				EE8B400818B0502900A24C3A /* Security.framework */,
@@ -459,6 +467,7 @@
 			children = (
 				EE7FA866180DFEBF000E124F /* OldUI */,
 				EE07673517E244180078D669 /* AutoLayout */,
+				EEA5247618BF102C00376BC4 /* DataControllers */,
 				EE574EC5178F77CA00904CF7 /* testAppDelegate.h */,
 				EE574EC6178F77CA00904CF7 /* testAppDelegate.m */,
 				EE574EDE178F9BDC00904CF7 /* resources */,
@@ -583,6 +592,19 @@
 				EE2DC20517C697F3009C803C /* RLCEndTimeTitleCell.xib */,
 			);
 			name = RLCSliderMenuCells;
+			sourceTree = "<group>";
+		};
+		EEA5247618BF102C00376BC4 /* DataControllers */ = {
+			isa = PBXGroup;
+			children = (
+				EEA5247B18BF2A9800376BC4 /* MapPoint.h */,
+				EEA5247C18BF2A9800376BC4 /* MapPoint.m */,
+				EE8B3FE618ADF95F00A24C3A /* motionDataController.h */,
+				EE8B3FE718ADF95F00A24C3A /* motionDataController.m */,
+				EEA5247818BF104E00376BC4 /* breakSuggestionController.h */,
+				EEA5247918BF104E00376BC4 /* breakSuggestionController.m */,
+			);
+			name = DataControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -723,6 +745,8 @@
 				EE6F4E8B180334F500B52841 /* setTimerCell.m in Sources */,
 				EE0F5BA417DD0305001576F9 /* secondsTickView.m in Sources */,
 				EE0F5BBE17DD0DB7001576F9 /* MPAnimation.m in Sources */,
+				EEA5247D18BF2A9800376BC4 /* MapPoint.m in Sources */,
+				EEA5247A18BF104E00376BC4 /* breakSuggestionController.m in Sources */,
 				EE0F5BBF17DD0DB7001576F9 /* MPFoldTransition.m in Sources */,
 				EE0F5BC017DD0DB7001576F9 /* MPTransition.m in Sources */,
 				EE0F5BC117DD0DB7001576F9 /* MPFlipTransition.m in Sources */,
@@ -821,6 +845,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/raymondchen/Desktop/circleDial,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "circleDial/circleDial-Prefix.pch";
@@ -845,6 +870,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/raymondchen/Desktop/circleDial,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "circleDial/circleDial-Prefix.pch";

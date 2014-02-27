@@ -18,4 +18,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *countDownTextLabel;
 @property (strong, nonatomic) IBOutlet UILabel *countDownText;
 @property (strong, nonatomic) IBOutlet UILabel *stateLabel;
+@property (strong, nonatomic) IBOutlet secondsTickView *onBreakLeftDiamondView;
+@property (strong, nonatomic) IBOutlet secondsTickView *onBreakRightDiamondView;
+@property (strong, nonatomic) IBOutlet UILabel *onBreakLabel;
 @end

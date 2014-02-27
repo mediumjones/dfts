@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+bounce.h"
 #import "NSString+SSGizmo.h"
-#import "RJ_NotificationView.h"
+#import "breakSuggestionController.h"
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -46,7 +46,7 @@ typedef enum MenuState {
 @property (nonatomic, assign) BOOL isTimerButtonBeingDragged;
 @property (nonatomic, assign) BOOL isRepeatButtonBeingDragged;
 @property (nonatomic, assign) BOOL disablePanUpdate;
-@property (nonatomic, strong) RJ_NotificationView *notificationView;
+@property (nonatomic, strong) breakSuggestionController *breakDC;
 
 @end
 
@@ -68,9 +68,8 @@ typedef enum MenuState {
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-	self.notificationView = [[RJ_NotificationView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
-    [self.view addSubview:self.notificationView];
-    [self.view sendSubviewToBack:self.notificationView];
+	self.breakDC = [breakSuggestionController sharedInstance];
+	self.breakDC.delegate = self;
 	
 	// Setup fonts for pull down and start timer text
 	UIFont* timerTextFont =
@@ -133,6 +132,13 @@ typedef enum MenuState {
 	UIFont* titleFont = [UIFont fontWithName:@"KS-Normal" size:32];
 	self.titleLabel.font = titleFont;
 	
+	self.suggestionLabel.font = [UIFont fontWithName:@"KlinicSlab-Light" size:24];
+	self.suggestionLocationLabel.font = [UIFont fontWithName:@"KS-Normal" size:16];
+	self.distanceLabel.font = [UIFont fontWithName:@"KlinicSlab-Light" size:16];
+	UIFont* iconFont = [UIFont fontWithName:@"SS Gizmo" size:28];
+	self.arrowLabel.font = iconFont;
+	self.arrowLabel.text = [NSString convertUnicode:@"0xE670"];
+	
 	// Setup listener for setupDialView
 	[self.setupTimerView addObserver:self
 						  forKeyPath:@"center"
@@ -149,6 +155,15 @@ typedef enum MenuState {
 			  options:(NSKeyValueObservingOptionNew |
 					   NSKeyValueObservingOptionOld)
 			  context:NULL];
+	
+	// Set listener for count down time
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(updateWrittenRemainingTime:)
+												 name:@"UPDATEWRITTENTIME" object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(showBreakSuggestion:)
+												 name:@"ONBREAK" object:nil];
 	
 	[self.progressTimer setUpTimerWithCountDownTimer:1 withTimerLabel:self.timerLabel withWrittenTimerLabel:self.writtenTimerLabel];
 	self.currentMenuState = MENU_OFF;
@@ -496,4 +511,25 @@ typedef enum MenuState {
     return UIStatusBarStyleLightContent;
 }
 
+- (void)updateWrittenRemainingTime:(NSNotification*)notification{
+	self.writtenTimerLabel.text = [[notification userInfo]objectForKey:@"timeString"];
+}
+
+- (void)showBreakSuggestion:(NSNotification*)notification{
+	[self.breakDC queryGooglePlaces:@"cafe"];
+
+}
+- (IBAction)onButton:(id)sender {
+}
+
+- (void)updateSuggestionToMapPoint:(MapPoint *)suggestedMapPoint{
+	[UIView animateWithDuration:1.0 animations:^{
+		self.breakNotificationView.alpha = 1.0;
+		self.suggestionLocationLabel.text = suggestedMapPoint.name;
+		self.distanceLabel.text = [NSString stringWithFormat:@"%.f m",[suggestedMapPoint returnDistanceFromMapPoint]];
+		self.breakNotificationView.transform = CGAffineTransformTranslate(self.breakNotificationView.transform, 0, 70);
+		self.topDivider.alpha = 0.0;
+	}];
+}
 @end
+

@@ -9,7 +9,6 @@
 #import "testAppDelegate.h"
 #import <Parse/Parse.h>
 
-
 @implementation testAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -19,14 +18,12 @@
 				  clientKey:@"BATHQmHF1NFpU5NSckBVxCagjTrSJ4SoPOZ45kLK"];
 	
     // Override point for customization after application launch.
-	self.locationManager = [[CLLocationManager alloc] init];
-	self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	self.locationManager.delegate = self;
-	
 	[application registerForRemoteNotificationTypes:
 	 UIRemoteNotificationTypeBadge |
 	 UIRemoteNotificationTypeAlert |
 	 UIRemoteNotificationTypeSound];
+	
+	
 	
     return YES;
 }
@@ -80,6 +77,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
 	// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+	self.locationManager = [[CLLocationManager alloc] init];
+	self.locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+	self.locationManager.distanceFilter=kCLDistanceFilterNone;
+	self.locationManager.delegate = self;
+
+	[self.locationManager startUpdatingLocation];
+	[self.locationManager startUpdatingHeading];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -91,7 +95,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-	
+	NSLog(@"NEW LOCATION");
+	self.currentLocation = newLocation;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading{
+	self.currentHeading = newHeading;
 }
 
 - (void)application:(UIApplication *)application
