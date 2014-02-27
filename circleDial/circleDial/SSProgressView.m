@@ -126,7 +126,7 @@ typedef enum ProgressViewState {
 	CGContextSetShouldAntialias(context, true);
 	CGContextSetAllowsAntialiasing(context, true);
 	CGFloat radius;
-	NSLog(@"height is %f width is %f", self.bounds.size.height, self.bounds.size.width);
+
 	if (self.bounds.size.width > self.bounds.size.height){
 		radius = self.bounds.size.height/2 * 0.9;
 	}else{

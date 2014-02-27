@@ -11,6 +11,7 @@
 @protocol countDownViewDelegate
 
 - (void)updateTextLabelForCurrentTimer:(int)elapsedTime;
+- (void)updateTextLabelForRemainingTimer:(int)remainingTime;
 - (void)updateOnTimerIsUp;
 - (void)updateOnBreakTime;
 
@@ -24,4 +25,5 @@
 
 - (void)setUpTimerWithCountDownTimer:(int)minutes;
 - (void)startTimer;
+- (void)stopTimer;
 @end

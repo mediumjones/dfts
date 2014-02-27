@@ -183,6 +183,46 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.13333334029999999" green="0.1764705926" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
+                                    <view alpha="0.0" contentMode="scaleToFill" id="Kmr-CC-4Ot" userLabel="BreakNotificationView">
+                                        <rect key="frame" x="0.0" y="-50" width="320" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How about a coffee?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MyI-Cp-FeT" userLabel="SuggestionLabel">
+                                                <rect key="frame" x="15" y="12" width="224" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agro Cafe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8N9-rW-2hq" userLabel="SuggestionLocationLabel">
+                                                <rect key="frame" x="15" y="35" width="224" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" id="GUL-Aq-Yu6" userLabel="DividerLine">
+                                                <rect key="frame" x="245" y="14" width="1" height="42"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            </view>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TcW-EL-0nL" userLabel="arrowLabel">
+                                                <rect key="frame" x="266" y="16" width="34" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 m" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eFi-in-akO" userLabel="distanceLabel">
+                                                <rect key="frame" x="260" y="37" width="46" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.083033424650000007" green="0.1080076802" blue="0.12149234690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.083033424646284007" green="0.10800768024287334" blue="0.12149234693877553" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -196,9 +236,12 @@
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
+                        <outlet property="arrowLabel" destination="TcW-EL-0nL" id="755-02-Ais"/>
                         <outlet property="baseView" destination="Hra-iC-qJY" id="Zcr-uv-aek"/>
                         <outlet property="bottomMenuView" destination="3vw-gw-mbW" id="gyA-F5-BHd"/>
+                        <outlet property="breakNotificationView" destination="Kmr-CC-4Ot" id="WEN-IU-QOT"/>
                         <outlet property="clipView" destination="Gu5-yl-phH" id="1Zm-Xc-dPX"/>
+                        <outlet property="distanceLabel" destination="eFi-in-akO" id="Wqn-dZ-1y1"/>
                         <outlet property="downArrowIconLabel" destination="SbX-za-2CP" id="lO4-0S-ghe"/>
                         <outlet property="dragView" destination="n9p-wI-uqH" id="SWF-mR-mXL"/>
                         <outlet property="progressTimer" destination="Geo-RC-khR" id="Ywg-iP-CEE"/>
@@ -207,10 +250,13 @@
                         <outlet property="setTimerLabel" destination="Mj4-2u-0aB" id="woT-Om-TbY"/>
                         <outlet property="setupTimerView" destination="TcO-sO-av5" id="cBf-yx-qEk"/>
                         <outlet property="startTitleLabel" destination="mxY-wv-G68" id="hqB-X2-Mob"/>
+                        <outlet property="suggestionLabel" destination="MyI-Cp-FeT" id="Xz5-CM-3nx"/>
+                        <outlet property="suggestionLocationLabel" destination="8N9-rW-2hq" id="EJw-iA-h1A"/>
                         <outlet property="timerBtn" destination="IKf-mO-zcV" id="Jvf-NH-4Sp"/>
                         <outlet property="timerLabel" destination="ovv-sU-WB5" id="NdM-EX-ceR"/>
                         <outlet property="timerTitleLabel" destination="i2X-Li-oAd" id="j5I-IT-F6B"/>
                         <outlet property="titleLabel" destination="lFa-qq-1xK" id="LN5-JA-jWC"/>
+                        <outlet property="topDivider" destination="koQ-ed-5c1" id="yzH-q8-OyD"/>
                         <outlet property="writtenTimerLabel" destination="NsW-FE-5sz" id="j8z-RC-PYs"/>
                     </connections>
                 </viewController>
@@ -388,8 +434,24 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="motion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RrG-iP-7mF" userLabel="StateLabel">
-                                <rect key="frame" x="120" y="140" width="80" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="motionless" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RrG-iP-7mF" userLabel="StateLabel">
+                                <rect key="frame" x="115" y="150" width="90" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view alpha="0.0" contentMode="scaleToFill" id="XuJ-wa-YEd" userLabel="leftDiamond" customClass="secondsTickView">
+                                <rect key="frame" x="56" y="370" width="15" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view alpha="0.0" contentMode="scaleToFill" id="w94-Ov-jvC" userLabel="rigthDiamond" customClass="secondsTickView">
+                                <rect key="frame" x="249" y="370" width="15" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On Break!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RRC-fR-aY3" userLabel="onBreakLabel">
+                                <rect key="frame" x="100" y="366" width="120" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -401,6 +463,9 @@
                     <connections>
                         <outlet property="countDownText" destination="8dg-dv-11y" id="8p3-rg-50O"/>
                         <outlet property="countDownTimer" destination="mep-kf-lf0" id="mDd-hS-z79"/>
+                        <outlet property="onBreakLabel" destination="RRC-fR-aY3" id="iSI-PL-txV"/>
+                        <outlet property="onBreakLeftDiamondView" destination="XuJ-wa-YEd" id="1wr-gD-aSu"/>
+                        <outlet property="onBreakRightDiamondView" destination="w94-Ov-jvC" id="Hcn-0Y-ZuK"/>
                         <outlet property="secondsTickBackgroundView" destination="baR-Ly-KtA" id="PiF-Vu-ovx"/>
                         <outlet property="secondsTickView" destination="tmo-Jt-Ekf" id="aC5-Av-OcY"/>
                         <outlet property="stateLabel" destination="RrG-iP-7mF" id="rTZ-bn-FFQ"/>

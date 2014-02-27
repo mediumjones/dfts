@@ -16,4 +16,7 @@
 @property (strong, nonatomic) NSTimer *timer;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTask;
 @property (nonatomic, copy) NSString *tokenDevice;
+@property (nonatomic, strong) CLLocation *currentLocation;
+@property (nonatomic, strong) CLHeading *currentHeading;
+
 @end

@@ -8,7 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol motionDataControllDelegate
+
+- (void)updateMotionStateTo:(NSString*)stateString;
+
+@end
+
+
 @interface motionDataController : NSObject
+
+@property (nonatomic, weak) id <motionDataControllDelegate> delegate;
 
 + (motionDataController*)sharedInstance;
 - (void)startMotionSensing;
